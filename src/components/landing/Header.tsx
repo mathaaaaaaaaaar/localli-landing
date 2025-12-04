@@ -130,7 +130,10 @@ export default function Header() {
                   key={item.label}
                   href={item.href}
                   className="block py-2 text-foreground font-medium"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={() => {
+                    handleScrollTo(item.href.slice(1));
+                    setIsMobileMenuOpen(false);
+                  }}
                   data-testid={`link-mobile-nav-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
                 >
                   {item.label}
