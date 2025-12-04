@@ -16,6 +16,13 @@ import {
 import { Button } from '../ui/button';
 import ThemeToggle from './ThemeToggle';
 
+const handleScrollTo = (id: string) => {
+  const element = document.getElementById(id);
+  if (element) {
+    element.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+};
+
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -75,7 +82,7 @@ export default function Header() {
             {navItems.map((item, index) => (
               <motion.a
                 key={item.label}
-                href={item.href}
+                onClick={() => handleScrollTo(item.href.slice(1))}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 * index }}
