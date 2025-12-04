@@ -40,10 +40,10 @@ import {
 } from '../ui/select';
 
 const formSchema = z.object({
-  businessName: z.string().min(2, "Business name is required"),
+  business_name: z.string().min(2, "Business name is required"),
   email: z.string().email("Please enter a valid email"),
   phone: z.string().optional(),
-  category: z.string().min(1, "Please select a category"),
+  service_category: z.string().min(1, "Please select a category"),
   source: z.string().optional(),
 });
 
@@ -79,10 +79,10 @@ export default function BusinessSignupForm() {
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      businessName: "",
+      business_name: "",
       email: "",
       phone: "",
-      category: "",
+      service_category: "",
       source: "",
     },
   });
@@ -90,10 +90,36 @@ export default function BusinessSignupForm() {
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
     console.log("Form submitted:", data);
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+
+    try {
+      const res = await fetch("/api/submit-lead", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) {
+        console.error("API error:", await res);
+        alert("Something went wrong. Try again.");
+        setIsSubmitting(false);
+        return;
+      }
+
+      // SUCCESS
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+      form.reset();
+
+    } catch (err) {
+      console.error(err);
+      alert("Network error. Try again.");
+      setIsSubmitting(false);
+    }
   };
+  
 
   return (
     <section id="business" className="py-24 lg:py-32 relative overflow-hidden">
@@ -205,7 +231,7 @@ export default function BusinessSignupForm() {
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
                       <FormField
                         control={form.control}
-                        name="businessName"
+                        name="business_name"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel className="text-sm font-medium">Business Name</FormLabel>
@@ -273,14 +299,14 @@ export default function BusinessSignupForm() {
 
                       <FormField
                         control={form.control}
-                        name="category"
+                        name="service_category"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-sm font-medium">Service Category</FormLabel>
+                            <FormLabel className="text-sm font-medium">Service service category</FormLabel>
                             <Select onValueChange={field.onChange} defaultValue={field.value}>
                               <FormControl>
-                                <SelectTrigger data-testid="select-category">
-                                  <SelectValue placeholder="Select your category" />
+                                <SelectTrigger data-testid="select-service_category">
+                                  <SelectValue placeholder="Select your service_category" />
                                 </SelectTrigger>
                               </FormControl>
                               <SelectContent>

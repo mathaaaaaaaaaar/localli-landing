@@ -90,14 +90,6 @@ export default function Header() {
 
           <div className="hidden md:flex items-center gap-3">
             <ThemeToggle />
-            <Button
-              variant="ghost"
-              size="sm"
-              className="font-medium"
-              data-testid="button-login"
-            >
-              Log in
-            </Button>
             <Button size="sm" className="font-semibold" data-testid="button-early-access">
               Get Early Access
             </Button>
@@ -138,9 +130,6 @@ export default function Header() {
                 </a>
               ))}
               <div className="pt-3 flex flex-col gap-2">
-                <Button variant="outline" className="w-full" data-testid="button-mobile-login">
-                  Log in
-                </Button>
                 <Button className="w-full" data-testid="button-mobile-early-access">
                   Get Early Access
                 </Button>
