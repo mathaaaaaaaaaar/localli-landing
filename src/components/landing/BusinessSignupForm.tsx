@@ -135,10 +135,11 @@ export default function BusinessSignupForm() {
         transition={{ duration: 10, repeat: Infinity }}
       />
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 relative">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 relative" id='forBusinessSection'>
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <motion.div
             ref={ref}
+            id='forBusinesses'
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6 }}
@@ -220,6 +221,7 @@ export default function BusinessSignupForm() {
             <AnimatePresence mode="wait">
               {!isSubmitted ? (
                 <motion.div
+                  id='businessForm'
                   key="form"
                   initial={{ opacity: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}

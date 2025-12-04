@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { motion } from 'framer-motion';
 import {
   ArrowRight,
@@ -8,11 +10,15 @@ import {
 
 import { Button } from '../ui/button';
 import AnimatedBlobs from './AnimatedBlobs';
+import EarlyAccessForm from './EarlyAccessForm';
+import EarlyAccessModal from './EarlyAccessModal';
 
 const words = ["Find", "Local", "Services."];
 const words2 = ["Support", "Local", "Businesses."];
 
 export default function Hero() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
       <AnimatedBlobs />
@@ -94,6 +100,7 @@ export default function Hero() {
                 size="lg"
                 className="group text-base font-semibold px-8"
                 data-testid="button-hero-early-access"
+                onClick={() => setIsModalOpen(true)}
               >
                 Get Early Access
                 <motion.span
@@ -109,6 +116,12 @@ export default function Hero() {
                 variant="outline"
                 className="text-base font-semibold px-8"
                 data-testid="button-hero-business"
+                onClick={() => {
+                  const element = document.getElementById("business");
+                  if(element) {
+                    element.scrollIntoView({behavior: "smooth"});
+                  }
+                }}
               >
                 I'm a Business
               </Button>
@@ -121,7 +134,7 @@ export default function Hero() {
               className="flex flex-wrap items-center gap-6 pt-4"
             >
               {[
-                { icon: Users, label: "500+ businesses joining", value: "" },
+                { icon: Users, label: "100+ businesses joining", value: "" },
                 { icon: MapPin, label: "20+ cities planned", value: "" },
                 { icon: Star, label: "Built for community", value: "" },
               ].map((stat, i) => (
@@ -241,6 +254,9 @@ export default function Hero() {
           />
         </motion.div>
       </motion.div>
+      <EarlyAccessModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <EarlyAccessForm />
+      </EarlyAccessModal>
     </section>
   );
 }

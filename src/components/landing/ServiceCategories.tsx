@@ -1,26 +1,34 @@
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef, useState } from "react";
 import {
-  Home,
-  Scissors,
+  useRef,
+  useState,
+} from 'react';
+
+import {
+  motion,
+  useInView,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from 'framer-motion';
+import {
   Briefcase,
-  PartyPopper,
+  Camera,
   Car,
   Dog,
-  Stethoscope,
-  GraduationCap,
   Dumbbell,
-  Camera,
+  GraduationCap,
+  Home,
+  PartyPopper,
+  Scissors,
+  Stethoscope,
   Utensils,
   Wrench,
-  ArrowRight,
-} from "lucide-react";
+} from 'lucide-react';
 
 const categories = [
   { icon: Home, name: "Home Services", count: "150+", color: "from-primary to-primary/70", bgHover: "primary" },
   { icon: Scissors, name: "Beauty & Wellness", count: "200+", color: "from-accent to-accent/70", bgHover: "accent" },
-  { icon: Briefcase, name: "Professional", count: "80+", color: "from-chart-3 to-chart-3/70", bgHover: "chart-3" },
+  { icon: Briefcase, name: "Movers", count: "80+", color: "from-chart-3 to-chart-3/70", bgHover: "chart-3" },
   { icon: PartyPopper, name: "Events", count: "120+", color: "from-chart-5 to-chart-5/70", bgHover: "chart-5" },
   { icon: Car, name: "Auto Services", count: "90+", color: "from-chart-4 to-chart-4/70", bgHover: "chart-4" },
   { icon: Dog, name: "Pet Care", count: "75+", color: "from-primary to-accent", bgHover: "primary" },
@@ -103,7 +111,7 @@ function CategoryCard({ category, index }: { category: typeof categories[0]; ind
           transition={{ duration: 0.4 }}
         />
         
-        <div className="relative z-10 h-full flex flex-col">
+        <div className="relative z-10 h-full flex flex-col items-center justify-center text-center">
           <div className="flex items-start justify-between mb-4">
             <motion.div 
               className={`w-12 h-12 rounded-xl bg-gradient-to-br ${category.color} flex items-center justify-center shadow-lg`}
@@ -118,41 +126,11 @@ function CategoryCard({ category, index }: { category: typeof categories[0]; ind
             >
               <category.icon className="w-6 h-6 text-white" />
             </motion.div>
-            
-            <div
-              className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium transition-all duration-300 ${
-                isHovered 
-                  ? "bg-primary/10 text-primary" 
-                  : "bg-muted/50 text-muted-foreground"
-              }`}
-            >
-              {category.count}
-            </div>
           </div>
           
           <h3 className="font-display text-base font-bold mb-1 transition-colors duration-300 group-hover:text-primary">
             {category.name}
           </h3>
-          
-          <p className="text-xs text-muted-foreground mb-3">Local providers</p>
-          
-          <motion.div 
-            className="mt-auto flex items-center gap-2"
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ 
-              opacity: isHovered ? 1 : 0, 
-              x: isHovered ? 0 : -10 
-            }}
-            transition={{ duration: 0.3 }}
-          >
-            <span className="text-xs font-semibold text-primary">Explore</span>
-            <motion.div
-              animate={{ x: isHovered ? [0, 4, 0] : 0 }}
-              transition={{ duration: 0.6, repeat: isHovered ? Infinity : 0 }}
-            >
-              <ArrowRight className="w-3 h-3 text-primary" />
-            </motion.div>
-          </motion.div>
         </div>
 
         <motion.div
