@@ -183,7 +183,7 @@ export default function BusinessSignupForm() {
               ))}
             </div>
 
-            <motion.div
+            {/* <motion.div
               initial={{ opacity: 0 }}
               animate={isInView ? { opacity: 1 } : {}}
               transition={{ delay: 0.6 }}
@@ -210,7 +210,7 @@ export default function BusinessSignupForm() {
                 </motion.span>
                 <p className="text-sm text-muted-foreground">businesses already signed up</p>
               </div>
-            </motion.div>
+            </motion.div> */}
           </motion.div>
 
           <motion.div

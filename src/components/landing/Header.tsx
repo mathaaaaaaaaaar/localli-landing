@@ -90,9 +90,9 @@ export default function Header() {
 
           <div className="hidden md:flex items-center gap-3">
             <ThemeToggle />
-            <Button size="sm" className="font-semibold" data-testid="button-early-access">
+            {/* <Button size="sm" className="font-semibold" data-testid="button-early-access" onClick={() => setIsModalOpen(true)}>
               Get Early Access
-            </Button>
+            </Button> */}
           </div>
 
           <div className="flex md:hidden items-center gap-2">
@@ -129,11 +129,11 @@ export default function Header() {
                   {item.label}
                 </a>
               ))}
-              <div className="pt-3 flex flex-col gap-2">
-                <Button className="w-full" data-testid="button-mobile-early-access">
+              {/* <div className="pt-3 flex flex-col gap-2">
+                <Button className="w-full" data-testid="button-mobile-early-access" onClick={() => setIsModalOpen(true)}>
                   Get Early Access
                 </Button>
-              </div>
+              </div> */}
             </div>
           </motion.div>
         )}

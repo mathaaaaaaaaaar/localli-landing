@@ -11,6 +11,8 @@ import {
 import { Rocket } from 'lucide-react';
 
 import { Button } from '../ui/button';
+import EarlyAccessForm from './EarlyAccessForm';
+import EarlyAccessModal from './EarlyAccessModal';
 
 interface TimeLeft {
   days: number;
@@ -73,6 +75,7 @@ function CountdownUnit({ value, label, delay }: { value: number; label: string; 
 
 export default function Countdown() {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft());
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -135,11 +138,14 @@ export default function Countdown() {
           transition={{ delay: 0.6 }}
           className="text-center"
         >
-          <Button size="lg" className="font-semibold px-8" data-testid="button-countdown-notify">
+          <Button size="lg" className="font-semibold px-8" data-testid="button-countdown-notify" onClick={() => setIsModalOpen(true)}>
             Notify Me at Launch
           </Button>
         </motion.div>
       </div>
+      <EarlyAccessModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <EarlyAccessForm />
+      </EarlyAccessModal>
     </section>
   );
 }

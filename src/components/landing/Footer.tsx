@@ -3,43 +3,51 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
   ArrowRight,
-  Github,
   Heart,
-  Instagram,
-  Linkedin,
   Mail,
   Sparkles,
-  Twitter,
 } from 'lucide-react';
 
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 
-const socialLinks = [
-  { icon: Twitter, href: "#", label: "Twitter" },
-  { icon: Linkedin, href: "#", label: "LinkedIn" },
-  { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: Github, href: "#", label: "GitHub" },
+const founders = [
+  { name: "Mathar Syed", imageSrc: "/sms.jpg", linkedin: "https://www.linkedin.com/in/shaikmathar/" },
+  { name: "Amarnath K", imageSrc: "/amark.jpg", linkedin: "https://www.linkedin.com/in/amarnath-kathiresan/" },
+  { name: "Shan Bhaskaran", imageSrc: "/shan.jpg", linkedin: "https://www.linkedin.com/in/shanshihan-baskaran/" }
 ];
 
-const footerLinks = {
-  Product: ["Features", "Pricing", "For Businesses", "Mobile App"],
-  Company: ["About", "Blog", "Careers", "Press"],
-  Resources: ["Help Center", "Community", "Guidelines", "API Docs"],
-  Legal: ["Privacy", "Terms", "Cookies", "Licenses"],
-};
 
 export default function Footer() {
   const [email, setEmail] = useState("");
   const [isSubscribed, setIsSubscribed] = useState(false);
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
-      console.log("Newsletter signup:", email);
-      setIsSubscribed(true);
-      setTimeout(() => setIsSubscribed(false), 3000);
+    if (!email) return;
+    
+    console.log("Newsletter signup:", email);
+    setIsSubscribed(true);
+    try {
+      const res = await fetch("/api/submit-early-user.ts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          first_name: "", // unknown from footer, can leave empty
+          last_name: "",  // unknown from footer, can leave empty
+          email: email,
+        }),
+      });
+
+      if (!res.ok) throw new Error("API error");
+
+      // reset input
       setEmail("");
+      setTimeout(() => setIsSubscribed(false), 3000);
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong. Try again.");
+      setIsSubscribed(false);
     }
   };
 
@@ -88,24 +96,28 @@ export default function Footer() {
                 We're building the future of how people find and book local businesses.
               </p>
 
+
               <div className="flex items-center gap-3">
-                {socialLinks.map((social) => (
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
+                  <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                  <span className="text-sm font-medium">Building in Public</span>
+              </div>
+                {founders.map((founder) => (
                   <motion.a
-                    key={social.label}
-                    href={social.href}
+                    key={founder.name}
+                    href={founder.linkedin}
                     whileHover={{ y: -3 }}
-                    className="w-10 h-10 rounded-lg bg-muted/50 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-                    data-testid={`link-social-${social.label.toLowerCase()}`}
+                    className="w-10 h-10 rounded-full overflow-hidden border border-muted/50 hover:border-primary transition-colors"
+                    data-testid={`link-social-${founder.name.toLowerCase()}`}
                   >
-                    <social.icon className="w-5 h-5" />
+                    <img 
+                    src={founder.imageSrc}
+                    alt={founder.name}
+                    className="w-full h-full object-cover" />
                   </motion.a>
                 ))}
               </div>
 
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
-                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                <span className="text-sm font-medium">Building in Public</span>
-              </div>
             </div>
 
             <div className="space-y-8">
@@ -132,26 +144,6 @@ export default function Footer() {
                 </form>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
-                {Object.entries(footerLinks).map(([category, links]) => (
-                  <div key={category}>
-                    <h5 className="font-semibold text-sm mb-3">{category}</h5>
-                    <ul className="space-y-2">
-                      {links.map((link) => (
-                        <li key={link}>
-                          <a
-                            href="#"
-                            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                            data-testid={`link-footer-${link.toLowerCase().replace(/\s+/g, "-")}`}
-                          >
-                            {link}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
 
