@@ -1,52 +1,63 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
-import { Search, Shield, Zap, Heart, MessageCircle, TrendingUp } from "lucide-react";
+import { useRef } from 'react';
+
+import {
+  motion,
+  useInView,
+} from 'framer-motion';
+import {
+  Heart,
+  MessageCircle,
+  Search,
+  Shield,
+  TrendingUp,
+  Zap,
+} from 'lucide-react';
 
 const features = [
   {
     number: "01",
     icon: Search,
     title: "Discover Instantly",
-    description: "Find trusted local services in seconds. Filter by location, ratings, availability, and price range.",
+    description: "Find trusted local services fast — with filters that actually help.",
     gradient: "from-primary to-primary/60",
   },
   {
     number: "02",
     icon: Shield,
     title: "Verified Businesses",
-    description: "Every business is vetted and verified. Real reviews from real customers in your community.",
+    description: "Only vetted providers. Real reviews from people near you.",
     gradient: "from-accent to-accent/60",
   },
   {
     number: "03",
     icon: Zap,
-    title: "Book Seamlessly",
-    description: "Schedule appointments, get quotes, and pay securely - all in one place. No more phone tag.",
+    title: "Seamless Booking",
+    description: "Book, reschedule, and pay — all in one clean workflow.",
     gradient: "from-chart-3 to-chart-3/60",
   },
   {
     number: "04",
     icon: Heart,
     title: "Support Local",
-    description: "Every booking supports a local business. Build relationships with service providers who know your neighborhood.",
+    description: "Every booking boosts a local business in your community.",
     gradient: "from-chart-5 to-chart-5/60",
   },
   {
     number: "05",
     icon: MessageCircle,
-    title: "Direct Communication",
-    description: "Message businesses directly. Get quick responses and build lasting relationships with your service providers.",
+    title: "Direct Messaging",
+    description: "Chat instantly with businesses. No waiting, no phone calls.",
     gradient: "from-chart-4 to-chart-4/60",
   },
   {
     number: "06",
     icon: TrendingUp,
     title: "Grow Together",
-    description: "Businesses get tools to grow. Customers get better service. Everyone wins in the local economy.",
+    description: "Better tools for businesses. Better service for customers.",
     gradient: "from-primary to-accent",
   },
 ];
+
 
 function FeatureCard({ feature, index }: { feature: typeof features[0]; index: number }) {
   const ref = useRef(null);

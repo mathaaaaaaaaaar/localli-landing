@@ -1,4 +1,7 @@
-import { useState } from 'react';
+import {
+  useEffect,
+  useState,
+} from 'react';
 
 import { motion } from 'framer-motion';
 import {
@@ -12,12 +15,29 @@ import { Button } from '../ui/button';
 import AnimatedBlobs from './AnimatedBlobs';
 import EarlyAccessForm from './EarlyAccessForm';
 import EarlyAccessModal from './EarlyAccessModal';
+import TimedEarlyAccessForm from './TimedEarlyAccessForm';
 
 const words = ["Find", "Local", "Services."];
 const words2 = ["Support", "Local", "Businesses."];
 
 export default function Hero() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isTimedModalOpen, setIsTimedModalOpen] = useState(false);
+
+  useEffect(() => {
+    const hasSeen = localStorage.getItem("hasSeenEarlyModal");
+
+    if (!hasSeen) {
+      // Show modal for first-time visitors
+      const timer = setTimeout(() => {
+        setIsTimedModalOpen(true); // your modal state setter
+        localStorage.setItem("hasSeenEarlyAccessModal", "true");
+      }, 5000); // 5 seconds delay
+
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
 
   return (
     <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
@@ -256,6 +276,10 @@ export default function Hero() {
       </motion.div>
       <EarlyAccessModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <EarlyAccessForm />
+      </EarlyAccessModal>
+
+      <EarlyAccessModal isOpen={isTimedModalOpen} onClose={() => setIsTimedModalOpen(false)}>
+        <TimedEarlyAccessForm />
       </EarlyAccessModal>
     </section>
   );
