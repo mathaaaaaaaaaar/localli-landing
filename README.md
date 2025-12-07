@@ -31,8 +31,7 @@ This page showcases the product, collects interest, and allows users to join the
 
 ## Screenshots
 
-![Landing Page Screenshot](/public/LocalliLandingSS.png)  
-_Screenshot of the landing page (replace with your own image)_
+![Landing Page Screenshot](/public/LocalliLandingSS.png)
 
 ---
 
